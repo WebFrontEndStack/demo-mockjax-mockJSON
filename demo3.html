@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <title>Mocking JQuery Ajax</title>
+</head>
+<body>
+  <h1>demo3</h1>
+  <div id="result"></div>
+<script src="./lib/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="./lib/jquery.mockjax.js" type="text/javascript"></script>
+<script src="./lib/jquery.mockjson.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function () {
+  var isAjaxMocked = true;
+  if (isAjaxMocked) {
+    $.mockJSON.data.KEY = ['关键词1', '关键词2', '关键词3'];
+    $.mockjax({
+      url: '/api/getUserList',
+      status: 200,
+      responseTime: 750,
+      responseText: $.mockJSON.generateFromTemplate({//使用mockJSON返回json数据
+        "user|3-5": [{ // 随机返回3-5条user数据
+          "id|+1": 1, // id递增
+          "title": "@KEY ", // 从$.mockJSON.data.KEY中随机选择
+          "group|0-1": true, // 随机取0或1,用false和true表示
+          "park|0-1": 0, // 随机取0或1,用0和1表示
+          "address": "江西",
+          "price|100-500": 100//100-500间的随机数
+        }]
+      })
+    });
+  }
+  $.ajax({
+    url: '/api/getUserList',
+    type: 'GET',
+    success: function (response) {
+      var data = response.user;
+      console.log(data);
+      for (var i = 0; i < data.length; i++) {
+        $("#result").append(
+          "<ul>" +
+          "<li>ID: " + data[i].id + "</li>" +
+          "<li>title: " + data[i].title + "</li>" +
+          "<li>group: " + data[i].group + "</li>" +
+          "<li>park: " + data[i].park + "</li>" +
+          "<li>address: " + data[i].address + "</li>" +
+          "<li>price: " + data[i].price + "</li>" +
+          "</ul>" +
+          "<hr/>"
+        );
+      }
+    },
+    error: function (xhr) {
+        alert(xhr.responseText || "未知故障");
+    }
+  });
+});
+</script>
+</body>
+</html>

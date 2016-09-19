@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <title>Mocking JQuery Ajax</title>
+</head>
+<body>
+  <h1>demo2</h1>
+  <div id="result"></div>
+<script src="./lib/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="./lib/jquery.mockjax.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function () {
+  var isAjaxMocked = true;
+  if (isAjaxMocked) {
+    $.mockjax({
+      url: '/api/getUserDetail',
+      status: 200,
+      responseTime: 750,
+      responseText: { "user": [{ "id": "1", "name": "david", "birthday": "2001/01/26" }] }
+    });
+  }
+  $.ajax({
+    url: '/api/getUserDetail',
+    type: 'GET',
+    success: function (response) {
+      var data = response.user;
+      for (var i = 0; i < data.length; i++) {
+        $("#result").append(
+          "<ul>" +
+          "<li>ID: " + data[i].id + "</li>" +
+          "<li>Name: " + data[i].name + "</li>" +
+          "<li>Birthday: " + data[i].birthday + "</li>" +
+          "</ul>"
+        );
+      }
+    },
+    error: function (xhr) {
+        alert(xhr.responseText || "未知故障");
+    }
+  });
+});
+</script>
+</body>
+</html>

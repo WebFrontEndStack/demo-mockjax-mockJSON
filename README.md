@@ -3,12 +3,15 @@
 
 ### 简介
 > mockjax和mockJSON是两套不同的Javascript Library, 它们都是基于JQuery来开发的,
-- mockjax主要是可以针对指定的网址进行mock, 当Ajax呼叫网址时拦截并回传假的数据,
+
+- mockjax主要是可以针对指定的网址进行mock, 当Ajax呼叫网址时拦截并回传假的数据.
 - mockJSON则有点像是Json资料的Data Generater, 根据我们指定的格式随机数生成回传的Json资料.
+
 > mockjax：[Github地址](https://github.com/jakerella/jquery-mockjax)
 > mockJSON：[Github地址](https://github.com/mennovanslooten/mockJSON)
 
 ### 更多
+
 ```
 <!DOCTYPE html>
 <html>
@@ -116,6 +119,13 @@ $.mockjaxSettings = {
 $.mockjaxSettings.contentType = "application/json";
 ```
 
-> 将默认值修改之后，后面的模拟请求都会使用修改后的值：
+> 将默认值修改之后，后面的模拟请求都会使用修改后的值.
 
+### mock.js
+
+```
+http://mockjs.com/examples.html
+https://github.com/nuysoft/Mock
+https://github.com/nuysoft/Mock/wiki
+https://segmentfault.com/a/1190000003087224
 ```
